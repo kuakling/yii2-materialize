@@ -1,0 +1,33 @@
+{
+    "name": "kuakling/yii2-materialize",
+    "description": "The Materialize extension for the Yii framework",
+    "keywords": ["yii2", "materialize"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/kuakling/yii2-materialize/issues",
+        "source": "https://github.com/kuakling/yii2-materialize"
+    },
+    "authors": [
+        {
+            "name": "surakit",
+            "email": "kuakling@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/materialize": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "kuakling\\materialize\\": ""
+        }
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
