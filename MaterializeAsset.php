@@ -14,6 +14,5 @@ class MaterializeAsset extends AssetBundle
     public $sourcePath = '@bower/materialize/dist';
     public $css = [
         'css/materialize.min.css',
-        'kuakling\materialize\ghpages-materialize.css',
     ];
 }
