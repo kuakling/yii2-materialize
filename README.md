@@ -3,12 +3,6 @@ Materialize Extension for Yii 2
 
 ---
 
-> ### Note!
-> 
-> This extension in dev mode.
-
----
-
 This is the Materialize extension for Yii 2. It encapsulates [Materialize](http://materializecss.com/) components
 and plugins in terms of Yii widgets, and thus makes using Materialize components/plugins
 in Yii applications extremely easy.
