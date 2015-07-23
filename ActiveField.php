@@ -1,14 +1,20 @@
 <?php
+/**
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
+
 namespace kuakling\materialize;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
 /**
- * A Bootstrap 3 enhanced version of [[\yii\widgets\ActiveField]].
+ * A materialize 3 enhanced version of [[\yii\widgets\ActiveField]].
  *
  * This class adds some useful features to [[\yii\widgets\ActiveField|ActiveField]] to render all
- * sorts of Bootstrap 3 form fields in different form layouts:
+ * sorts of materialize 3 form fields in different form layouts:
  *
  * - [[inputTemplate]] is an optional template to render complex inputs, for example input groups
  * - [[horizontalCssClasses]] defines the CSS grid classes to add to label, wrapper, error and hint
@@ -78,7 +84,7 @@ use yii\helpers\ArrayHelper;
  * ```
  *
  * @see \kuakling\materialize\ActiveForm
- * @see http://getbootstrap.com/css/#forms
+ * @see http://getmaterialize.com/css/#forms
  *
  * @author Michael Härtl <haertl.mike@gmail.com>
  * @since 2.0
@@ -140,6 +146,13 @@ class ActiveField extends \yii\widgets\ActiveField
     public $enableLabel = true;
 
 
+    public $options = ['class' => 'input-field'];
+    
+    public $labelOptions = ['class' => false];
+
+    public $inputOptions = ['class' => false];
+
+
     /**
      * @inheritdoc
      */
@@ -187,6 +200,8 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function checkbox($options = [], $enclosedByLabel = true)
     {
+        $this->checkboxTemplate = "{input}\n{beginLabel}\n{labelTitle}\n{endLabel}";
+        $this->options['class'] = null;
         if ($enclosedByLabel) {
             if (!isset($options['template'])) {
                 $this->template = $this->form->layout === 'horizontal' ?
@@ -329,7 +344,7 @@ class ActiveField extends \yii\widgets\ActiveField
                 'class' => 'help-block help-block-error',
             ],
             'inputOptions' => [
-                'class' => 'form-control',
+                'class' => $this->inputOptions['class'],
             ],
         ];
 
