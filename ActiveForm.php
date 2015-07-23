@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
+
 namespace kuakling\materialize;
 
 use Yii;
@@ -76,6 +82,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
      * @see \kuakling\materialize\ActiveField for details on Bootstrap 3 field configuration
      */
     public $layout = 'default';
+    
 
 
     /**
