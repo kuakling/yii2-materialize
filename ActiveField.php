@@ -152,6 +152,9 @@ class ActiveField extends \yii\widgets\ActiveField
 
     public $inputOptions = ['class' => false];
 
+    //public $template = "{label}\n{input}\n{hint}\n{error}"; //original template
+    public $template = "{input}\n{label}";
+
 
     /**
      * @inheritdoc
@@ -201,7 +204,7 @@ class ActiveField extends \yii\widgets\ActiveField
     public function checkbox($options = [], $enclosedByLabel = true)
     {
         $this->checkboxTemplate = "{input}\n{beginLabel}\n{labelTitle}\n{endLabel}";
-        $this->options['class'] = null;
+        //$this->options['class'] = null;
         if ($enclosedByLabel) {
             if (!isset($options['template'])) {
                 $this->template = $this->form->layout === 'horizontal' ?
@@ -216,7 +219,7 @@ class ActiveField extends \yii\widgets\ActiveField
             if ($this->form->layout === 'horizontal') {
                 Html::addCssClass($this->wrapperOptions, $this->horizontalCssClasses['offset']);
             }
-            $this->labelOptions['class'] = null;
+            //$this->labelOptions['class'] = null;
         }
 
         return parent::checkbox($options, false);
