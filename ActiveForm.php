@@ -10,6 +10,7 @@ namespace kuakling\materialize;
 use Yii;
 use yii\helpers\Html;
 use yii\base\InvalidConfigException;
+use yii\helpers\Json;
 
 /**
  * A Bootstrap 3 enhanced version of [[\yii\widgets\ActiveForm]].
@@ -98,5 +99,24 @@ class ActiveForm extends \yii\widgets\ActiveForm
             Html::addCssClass($this->options, 'form-' . $this->layout);
         }
         parent::init();
+    }
+
+    public function run()
+    {
+        if (!empty($this->_fields)) {
+            throw new InvalidCallException('Each beginField() should have a matching endField() call.');
+        }
+
+        if ($this->enableClientScript) {
+            $id = $this->options['id'];
+            $options = Json::htmlEncode($this->getClientOptions());
+            $attributes = Json::htmlEncode($this->attributes);
+            $view = $this->getView();
+            //\yii\widgets\ActiveFormAsset::register($view);
+            ActiveFormAsset::register($view);
+            $view->registerJs("jQuery('#$id').yiiActiveForm($attributes, $options);");
+        }
+
+        echo Html::endForm();
     }
 }
