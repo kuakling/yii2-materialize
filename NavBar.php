@@ -69,6 +69,11 @@ class NavBar extends Widget
      */
     public $wraperContainerOptions = [];
 
+    public $addWrapperTag = [];
+
+    public $addContainerTag = [];
+
+
     /**
      * Initializes the widget.
      */
@@ -76,6 +81,15 @@ class NavBar extends Widget
     {
         parent::init();
         $this->clientOptions = false;
+        if(count($this->addWrapperTag) > 0){
+            foreach ($this->addWrapperTag as $key => $element) {
+                if(isset($element[1])){
+                    echo Html::beginTag($element[0], $element[1]);
+                }else{
+                    echo Html::beginTag($element[0]);
+                }
+            }
+        }
         if ($this->fixed) {
             if (!isset($this->fixedContainerOptions['class'])) {
                 Html::addCssClass($this->fixedContainerOptions, 'navbar-fixed');
@@ -90,6 +104,15 @@ class NavBar extends Widget
             Html::addCssClass($this->wraperContainerOptions, 'nav-wrapper');
         }
         echo Html::beginTag('div', $this->wraperContainerOptions);
+        if(count($this->addContainerTag) > 0){
+            foreach ($this->addContainerTag as $key => $element) {
+                if(isset($element[1])){
+                    echo Html::beginTag($element[0], $element[1]);
+                }else{
+                    echo Html::beginTag($element[0]);
+                }
+            }
+        }
         if ($this->brandLabel !== false) {
             Html::addCssClass($this->brandOptions, 'brand-logo');
             echo Html::a($this->brandLabel, $this->brandUrl === false ? Yii::$app->homeUrl : $this->brandUrl, $this->brandOptions);
