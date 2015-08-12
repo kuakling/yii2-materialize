@@ -1,11 +1,9 @@
-<?php
+<?php 
 namespace kuakling\materialize;
-
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-
 /**
  * Nav renders a nav HTML component.
  *
@@ -33,7 +31,7 @@ use yii\helpers\Html;
  * ]);
  * ```
  * @see http://materializecss.com/navbar.html
- * @author kuakling <kuakling@gmail.com>
+ * @author webmaxx <webmaxx@webmaxx.name>
  * @since 2.0
  */
 class Nav extends Widget
@@ -96,6 +94,7 @@ class Nav extends Widget
      */
     public $buttonCollapseOptions = [];
 
+    public $clientOptions = [];
     /**
      * Initializes the widget.
      * If you override this method, make sure you call the parent implementation first.
@@ -117,7 +116,6 @@ class Nav extends Widget
         }
         Html::addCssClass($this->options, 'nav');
     }
-
     /**
      * Renders the widget.
      */
@@ -130,7 +128,6 @@ class Nav extends Widget
         }
         return $this->renderItems();
     }
-
     /**
      * Renders widget items.
      */
@@ -143,10 +140,8 @@ class Nav extends Widget
             }
             $items[] = $this->renderItem($item);
         }
-
         return Html::tag('ul', implode("\n", $items), $this->options);
     }
-
     /**
      * Renders a widget's item.
      * @param string|array $item the item to render.
@@ -167,13 +162,11 @@ class Nav extends Widget
         $items = ArrayHelper::getValue($item, 'items');
         $url = ArrayHelper::getValue($item, 'url', '#');
         $linkOptions = ArrayHelper::getValue($item, 'linkOptions', []);
-
         if (isset($item['active'])) {
             $active = ArrayHelper::remove($item, 'active', false);
         } else {
             $active = $this->isItemActive($item);
         }
-
         if ($items !== null) {
             $dropdownId = uniqid($this->id . '-dropdown_');
             Html::addCssClass($options, 'dropdown');
@@ -188,14 +181,11 @@ class Nav extends Widget
                 $items = $this->renderDropdown($items, $item, $dropdownId);
             }
         }
-
         if ($this->activateItems && $active) {
             Html::addCssClass($options, 'active');
         }
-
         return Html::tag('li', Html::a($label, $url, $linkOptions) . $items, $options);
     }
-
     /**
      * Renders the given items as a dropdown.
      * This method is called to create sub-menus.
@@ -211,11 +201,10 @@ class Nav extends Widget
             'buttonLabel' => null,
             'items' => $items,
             'encodeLabels' => $this->encodeLabels,
-            'clientOptions' => false,
+            'clientOptions' => $this->clientOptions,
             'view' => $this->getView(),
         ]);
     }
-
     /**
      * Check to see if a child item is active optionally activating the parent.
      * @param array $items @see items
@@ -234,7 +223,6 @@ class Nav extends Widget
         }
         return $items;
     }
-
     /**
      * Checks whether a menu item is active.
      * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.
@@ -263,10 +251,8 @@ class Nav extends Widget
                     }
                 }
             }
-
             return true;
         }
-
         return false;
     }
 }
