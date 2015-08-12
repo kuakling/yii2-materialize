@@ -62,6 +62,8 @@ class Dropdown extends Widget
      */
     public $encodeLabels = true;
 
+    public $clientOptions = [];
+
     /**
      * Initializes the widget.
      * If you override this method, make sure you call the parent implementation first.
@@ -83,7 +85,7 @@ class Dropdown extends Widget
     {
         MaterializePluginAsset::register($this->getView());
         $this->registerClientEvents();
-        $this->getView()->registerJs("
+        /*$this->getView()->registerJs("
 $('#{$this->id}-btn').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -93,6 +95,13 @@ $('#{$this->id}-btn').dropdown({
       gutter: 0, // Spacing from edge
       belowOrigin: false // Displays dropdown below the button
 });
+        ");*/
+        $optionsJsonString = '';
+        if(count($this->clientOptions) > 0){
+            $optionsJsonString = \yii\helpers\Json::encode($this->clientOptions);
+        }
+$this->getView()->registerJs("
+$('#{$this->id}-btn').dropdown(".$optionsJsonString.");
         ");
         if ($this->buttonLabel !== null) {
             return Html::tag($this->buttontagName, $this->buttonLabel, $this->buttonOptions) . $this->renderItems($this->items, $this->options);
