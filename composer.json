@@ -1,27 +1,32 @@
 {
     "name": "kuakling/yii2-materialize",
+    "version": "dev-master",
     "description": "The Materialize extension for the Yii framework",
     "keywords": ["yii2", "materialize"],
+    "homepage": "http://monstersoft.com",
     "type": "yii2-extension",
     "license": "MIT",
+    "minimum-stability": "dev",
     "support": {
-        "issues": "https://github.com/kuakling/yii2-materialize/issues",
-        "source": "https://github.com/kuakling/yii2-materialize"
+        "source": "https://github.com/kuakling/yii2-materialize.git",
+        "issues": "https://github.com/kuakling/yii2-materialize/issues"
     },
     "authors": [
         {
-            "name": "surakit",
-            "email": "kuakling@gmail.com"
+            "name": "Surakit Choodet",
+            "email": "kuakling@gmail.com",
+            "role" : "Developer"
         }
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=5.4.0",
         "yiisoft/yii2": "*",
         "bower-asset/materialize": "@stable"
     },
     "autoload": {
         "psr-4": {
-            "kuakling\\materialize\\": ""
+            "kuakling\\materialize\\": "/"
         }
     },
     "extra": {
