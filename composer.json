@@ -21,8 +21,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "*",
-        "bower-asset/materialize": "@stable"
+        "yiisoft/yii2": "*"
     },
     "autoload": {
         "psr-4": {
