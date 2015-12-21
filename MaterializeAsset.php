@@ -15,4 +15,5 @@ class MaterializeAsset extends AssetBundle
     public $css = [
         'css/materialize.min.css',
     ];
+    public $cssOptions = ['media' => 'screen,projection'];
 }
