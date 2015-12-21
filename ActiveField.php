@@ -153,7 +153,7 @@ class ActiveField extends \yii\widgets\ActiveField
     public $inputOptions = ['class' => false];
 
     //public $template = "{label}\n{input}\n{hint}\n{error}"; //original template
-    public $template = "{input}\n{label}";
+    public $template = "{input}\n{label}\n{error}";
 
 
     /**
@@ -201,26 +201,37 @@ class ActiveField extends \yii\widgets\ActiveField
     /**
      * @inheritdoc
      */
+    public function textInput($options = [])
+    {
+        $prepend = '';
+        if(isset($options['prepend'])){
+            $prepend = $options['prepend'];
+            unset($options['prepend']);
+        }
+        $options = array_merge($this->inputOptions, $options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = $prepend.Html::activeTextInput($this->model, $this->attribute, $options);
+
+        return $this;
+    }
+
+    public function passwordInput($options = [])
+    {
+        $prepend = '';
+        if(isset($options['prepend'])){
+            $prepend = $options['prepend'];
+            unset($options['prepend']);
+        }
+        $options = array_merge($this->inputOptions, $options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = $prepend.Html::activePasswordInput($this->model, $this->attribute, $options);
+
+        return $this;
+    }
+
     public function checkbox($options = [], $enclosedByLabel = true)
     {
         $this->checkboxTemplate = "{input}\n{beginLabel}\n{labelTitle}\n{endLabel}";
-        //$this->options['class'] = null;
-        if ($enclosedByLabel) {
-            if (!isset($options['template'])) {
-                $this->template = $this->form->layout === 'horizontal' ?
-                    $this->horizontalCheckboxTemplate : $this->checkboxTemplate;
-            } else {
-                $this->template = $options['template'];
-                unset($options['template']);
-            }
-            if (isset($options['label'])) {
-                $this->parts['{labelTitle}'] = $options['label'];
-            }
-            if ($this->form->layout === 'horizontal') {
-                Html::addCssClass($this->wrapperOptions, $this->horizontalCssClasses['offset']);
-            }
-            //$this->labelOptions['class'] = null;
-        }
 
         return parent::checkbox($options, false);
     }
@@ -299,6 +310,65 @@ class ActiveField extends \yii\widgets\ActiveField
             };
         }
         parent::radioList($items, $options);
+        return $this;
+    }
+
+    public function dropDownList($items, $options = [])
+    {
+        $this->template = "{label}\n{input}";
+        $this->options['class'] = 'select-field';
+        $options = array_merge($this->inputOptions, $options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = Html::activeDropDownList($this->model, $this->attribute, $items, $options);
+
+        return $this;
+    }
+
+    public function dateInput($options = [])
+    {
+        $id = $this->getClientOptions()['id'];
+        $prepend = '';
+        if(isset($options['prepend'])){
+            $prepend = $options['prepend'];
+            unset($options['prepend']);
+        }
+        $clientOptions = [
+            'selectMonths' => true,
+            'selectYears'=> 15,
+            'format'=> 'dd/mm/yyyy',
+            'formatSubmit'=> 'yyyy-mm-dd',
+        ];
+        $clientOptionsJson = \yii\helpers\Json::encode($clientOptions);
+        $this->inputOptions['class'] = 'datepicker';
+        $options = array_merge($this->inputOptions, $options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = $prepend.Html::activeTextInput($this->model, $this->attribute, $options);
+        \Yii::$app->getView()->registerJs("jQuery('#".$id."').pickadate(".$clientOptionsJson.");");
+        return $this;
+    }
+
+    public function timeInput($options = [])
+    {
+        $id = $this->getClientOptions()['id'];
+        $prepend = '';
+        if(isset($options['prepend'])){
+            $prepend = $options['prepend'];
+            unset($options['prepend']);
+        }
+        $clientOptions = [
+            'placement'=> 'bottom',
+            'align'=> 'left',
+            'darktheme'=> true,
+            'twelvehour'=> false
+        ];
+        $clientOptionsJson = \yii\helpers\Json::encode($clientOptions);
+        $this->inputOptions['class'] = 'timepicker';
+        $options = array_merge($this->inputOptions, $options);
+        $this->adjustLabelFor($options);
+        $this->parts['{input}'] = $prepend.Html::activeTextInput($this->model, $this->attribute, $options);
+        \Yii::$app->getView()->registerJs("jQuery('#".$id."').clockpicker(".$clientOptionsJson.");");
+        $view = \Yii::$app->getView();
+        $bundle = \kuakling\materialize\MaterializeClockpickerAsset::register($view);
         return $this;
     }
 
