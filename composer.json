@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "bower-asset/materialize": "0.97.*"
+        "bower-asset/materialize": "*"
     },
     "autoload": {
         "psr-4": {
